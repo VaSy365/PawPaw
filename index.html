@@ -1,0 +1,500 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   PawMedik - Identifikasi Penyakit Umum Kucing
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #e0f7fa, #80deea, #26c6da, #00acc1, #00838f);
+            margin: 0;
+            padding: 0;
+        }
+        .logo-font {
+            font-family: 'Great Vibes', cursive;
+        }
+        .text-gold {
+            color: #FFD700;
+        }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .radio-label input {
+            display: none;
+        }
+        .radio-label span {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            margin-right: 8px;
+            transition: border-color 0.3s;
+        }
+        .radio-label input:checked + span {
+            border-color: #4A90E2;
+            background-color: #4A90E2;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            right: 20px;
+            top: 20px;
+            width: 300px;
+            background-color: #fefefe;
+            border: 1px solid #888;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .modal-content {
+            padding: 20px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-text {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+        }
+        .modal-text h2 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .modal-text p {
+            margin-bottom: 10px;
+        }
+        .warning {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+  </style>
+ </head>
+ <body>
+  <header class="bg-blue-900 text-white p-4">
+   <div class="container mx-auto flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+     <img alt="Logo PawMedik berupa gambar kucing dengan stetoskop" class="w-10 h-10 rounded-full" height="50" src="https://storage.googleapis.com/a1aa/image/vLWr1VSK0CaYAV9g42E8JnUEnqoiCAFb1DxfmkSnwoj3VR8JA.jpg" width="50"/>
+     <h1 class="text-2xl font-bold logo-font text-gold">
+      PawMedik
+     </h1>
+    </div>
+    <nav>
+     <ul class="flex space-x-4">
+      <li>
+       <a class="hover:underline" href="#" id="beranda-link">
+        Beranda
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#" id="tentang-link">
+        Tentang
+       </a>
+      </li>
+      <li>
+       <a class="hover:underline" href="#" id="kontak-link">
+        Kontak
+       </a>
+      </li>
+     </ul>
+    </nav>
+   </div>
+  </header>
+  <main class="container mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg relative">
+   <div class="text-center mb-6">
+    <img alt="Logo PawMedik berupa gambar kucing dengan stetoskop" class="mx-auto mb-4" height="100" src="https://storage.googleapis.com/a1aa/image/vLWr1VSK0CaYAV9g42E8JnUEnqoiCAFb1DxfmkSnwoj3VR8JA.jpg" width="100"/>
+    <h2 class="text-2xl font-bold mb-6 text-center text-teal-700">
+     Identifikasi Penyakit Kucing
+    </h2>
+   </div>
+   <form class="space-y-6" id="questionnaire">
+    <div>
+     <label class="block text-gray-700">
+      Apakah kucing Anda mengalami batuk?
+     </label>
+     <div class="flex space-x-4 mt-2">
+      <label class="radio-label">
+       <input name="symptom1" type="radio" value="yes"/>
+       <span>
+       </span>
+       Ya
+      </label>
+      <label class="radio-label">
+       <input name="symptom1" type="radio" value="no"/>
+       <span>
+       </span>
+       Tidak
+      </label>
+     </div>
+     <p class="warning hidden">
+      Tidak Boleh Mengosongkan Pilihan
+     </p>
+    </div>
+    <div>
+     <label class="block text-gray-700">
+      Apakah kucing Anda mengalami demam?
+     </label>
+     <div class="flex space-x-4 mt-2">
+      <label class="radio-label">
+       <input name="symptom2" type="radio" value="yes"/>
+       <span>
+       </span>
+       Ya
+      </label>
+      <label class="radio-label">
+       <input name="symptom2" type="radio" value="no"/>
+       <span>
+       </span>
+       Tidak
+      </label>
+     </div>
+     <p class="warning hidden">
+      Tidak Boleh Mengosongkan Pilihan
+     </p>
+    </div>
+    <div>
+     <label class="block text-gray-700">
+      Apakah kucing Anda mengalami muntah?
+     </label>
+     <div class="flex space-x-4 mt-2">
+      <label class="radio-label">
+       <input name="symptom3" type="radio" value="yes"/>
+       <span>
+       </span>
+       Ya
+      </label>
+      <label class="radio-label">
+       <input name="symptom3" type="radio" value="no"/>
+       <span>
+       </span>
+       Tidak
+      </label>
+     </div>
+     <p class="warning hidden">
+      Tidak Boleh Mengosongkan Pilihan
+     </p>
+    </div>
+    <div>
+     <label class="block text-gray-700">
+      Apakah kucing Anda mengalami diare?
+     </label>
+     <div class="flex space-x-4 mt-2">
+      <label class="radio-label">
+       <input name="symptom4" type="radio" value="yes"/>
+       <span>
+       </span>
+       Ya
+      </label>
+      <label class="radio-label">
+       <input name="symptom4" type="radio" value="no"/>
+       <span>
+       </span>
+       Tidak
+      </label>
+     </div>
+     <p class="warning hidden">
+      Tidak Boleh Mengosongkan Pilihan
+     </p>
+    </div>
+    <div>
+     <label class="block text-gray-700">
+      Apakah kucing Anda mengalami kehilangan nafsu makan?
+     </label>
+     <div class="flex space-x-4 mt-2">
+      <label class="radio-label">
+       <input name="symptom5" type="radio" value="yes"/>
+       <span>
+       </span>
+       Ya
+      </label>
+      <label class="radio-label">
+       <input name="symptom5" type="radio" value="no"/>
+       <span>
+       </span>
+       Tidak
+      </label>
+     </div>
+     <p class="warning hidden">
+      Tidak Boleh Mengosongkan Pilihan
+     </p>
+    </div>
+    <div>
+     <label class="block text-gray-700">
+      Apakah kucing Anda mengalami lesu?
+     </label>
+     <div class="flex space-x-4 mt-2">
+      <label class="radio-label">
+       <input name="symptom6" type="radio" value="yes"/>
+       <span>
+       </span>
+       Ya
+      </label>
+      <label class="radio-label">
+       <input name="symptom6" type="radio" value="no"/>
+       <span>
+       </span>
+       Tidak
+      </label>
+     </div>
+     <p class="warning hidden">
+      Tidak Boleh Mengosongkan Pilihan
+     </p>
+    </div>
+    <div>
+     <label class="block text-gray-700">
+      Apakah kucing Anda mengalami bersin?
+     </label>
+     <div class="flex space-x-4 mt-2">
+      <label class="radio-label">
+       <input name="symptom7" type="radio" value="yes"/>
+       <span>
+       </span>
+       Ya
+      </label>
+      <label class="radio-label">
+       <input name="symptom7" type="radio" value="no"/>
+       <span>
+       </span>
+       Tidak
+      </label>
+     </div>
+     <p class="warning hidden">
+      Tidak Boleh Mengosongkan Pilihan
+     </p>
+    </div>
+    <div>
+     <label class="block text-gray-700">
+      Apakah kucing Anda mengalami mata berair?
+     </label>
+     <div class="flex space-x-4 mt-2">
+      <label class="radio-label">
+       <input name="symptom8" type="radio" value="yes"/>
+       <span>
+       </span>
+       Ya
+      </label>
+      <label class="radio-label">
+       <input name="symptom8" type="radio" value="no"/>
+       <span>
+       </span>
+       Tidak
+      </label>
+     </div>
+     <p class="warning hidden">
+      Tidak Boleh Mengosongkan Pilihan
+     </p>
+    </div>
+    <div>
+     <label class="block text-gray-700">
+      Apakah kucing Anda mengalami hidung berair?
+     </label>
+     <div class="flex space-x-4 mt-2">
+      <label class="radio-label">
+       <input name="symptom9" type="radio" value="yes"/>
+       <span>
+       </span>
+       Ya
+      </label>
+      <label class="radio-label">
+       <input name="symptom9" type="radio" value="no"/>
+       <span>
+       </span>
+       Tidak
+      </label>
+     </div>
+     <p class="warning hidden">
+      Tidak Boleh Mengosongkan Pilihan
+     </p>
+    </div>
+    <div>
+     <label class="block text-gray-700">
+      Apakah kucing Anda mengalami gatal-gatal?
+     </label>
+     <div class="flex space-x-4 mt-2">
+      <label class="radio-label">
+       <input name="symptom10" type="radio" value="yes"/>
+       <span>
+       </span>
+       Ya
+      </label>
+      <label class="radio-label">
+       <input name="symptom10" type="radio" value="no"/>
+       <span>
+       </span>
+       Tidak
+      </label>
+     </div>
+     <p class="warning hidden">
+      Tidak Boleh Mengosongkan Pilihan
+     </p>
+    </div>
+    <button class="bg-teal-700 text-white px-6 py-2 rounded-md hover:bg-teal-800 transition duration-300" type="submit">
+     Prediksi Penyakit
+    </button>
+   </form>
+   <div class="mt-8 p-6 bg-blue-100 rounded-lg hidden" id="result">
+    <h3 class="text-lg font-bold text-teal-700">
+     Hasil Prediksi
+    </h3>
+    <p class="mt-2 text-gray-700" id="prediction">
+    </p>
+    <h3 class="text-lg font-bold text-teal-700 mt-4">
+     Solusi
+    </h3>
+    <p class="mt-2 text-gray-700" id="solution">
+    </p>
+    <h3 class="text-lg font-bold text-teal-700 mt-4">
+     Pencegahan
+    </h3>
+    <p class="mt-2 text-gray-700" id="prevention">
+    </p>
+   </div>
+  </main>
+  <footer class="bg-blue-900 text-white p-4 mt-8">
+   <div class="container mx-auto text-center">
+    <p>
+     © 2024 PawMedik. All rights reserved.
+    </p>
+   </div>
+  </footer>
+  <div class="modal" id="modal">
+   <div class="modal-content">
+    <span class="close">
+     ×
+    </span>
+    <div class="modal-text" id="modal-text">
+    </div>
+   </div>
+  </div>
+  <script>
+   document.getElementById('beranda-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            showModal(`
+                <h2>Selamat datang di Pawmedik!</h2>
+                <p>Kami hadir untuk membantu Anda mengenali gejala penyakit umum pada kucing dengan mudah. Dapatkan rekomendasi langkah awal yang tepat melalui analisis cepat berbasis decision tree.</p>
+            `);
+        });
+
+        document.getElementById('tentang-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            showModal(`
+                <h2>Tentang Pawmedik</h2>
+                <p>Pawmedik adalah platform yang dirancang untuk pemilik kucing, mempermudah identifikasi dini gejala penyakit pada kucing kesayangan Anda. Dengan teknologi decision tree, kami memberikan hasil yang akurat dan cepat, membantu Anda mengambil langkah yang tepat untuk kesehatan kucing Anda.</p>
+            `);
+        });
+
+        document.getElementById('kontak-link').addEventListener('click', function(event) {
+            event.preventDefault();
+            showModal(`
+                <h2>Hubungi Kami</h2>
+                <p>Ada pertanyaan atau saran? Kami di sini untuk membantu.</p>
+                <p>Email: support@pawmedik.com</p>
+                <p>Telepon: (+62) 812-3456-7890</p>
+                <p>Jangan ragu untuk menghubungi kami kapan saja!</p>
+            `);
+        });
+
+        function showModal(content) {
+            document.getElementById('modal-text').innerHTML = content;
+            document.getElementById('modal').style.display = "block";
+        }
+
+        document.querySelector('.close').addEventListener('click', function() {
+            document.getElementById('modal').style.display = "none";
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target == document.getElementById('modal')) {
+                document.getElementById('modal').style.display = "none";
+            }
+        });
+
+        document.getElementById('questionnaire').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const symptoms = {
+                symptom1: document.querySelector('input[name="symptom1"]:checked'),
+                symptom2: document.querySelector('input[name="symptom2"]:checked'),
+                symptom3: document.querySelector('input[name="symptom3"]:checked'),
+                symptom4: document.querySelector('input[name="symptom4"]:checked'),
+                symptom5: document.querySelector('input[name="symptom5"]:checked'),
+                symptom6: document.querySelector('input[name="symptom6"]:checked'),
+                symptom7: document.querySelector('input[name="symptom7"]:checked'),
+                symptom8: document.querySelector('input[name="symptom8"]:checked'),
+                symptom9: document.querySelector('input[name="symptom9"]:checked'),
+                symptom10: document.querySelector('input[name="symptom10"]:checked'),
+            };
+
+            let allFilled = true;
+
+            for (const key in symptoms) {
+                const warningElement = document.querySelector(`input[name="${key}"]`).closest('div').nextElementSibling;
+                if (!symptoms[key]) {
+                    warningElement.classList.remove('hidden');
+                    allFilled = false;
+                } else {
+                    warningElement.classList.add('hidden');
+                }
+            }
+
+            if (!allFilled) {
+                return;
+            }
+
+            let prediction = '';
+            let solution = '';
+            let prevention = '';
+
+            if (symptoms.symptom1.value === 'yes' && symptoms.symptom2.value === 'yes' && symptoms.symptom7.value === 'yes' && symptoms.symptom8.value === 'yes' && symptoms.symptom9.value === 'yes') {
+                prediction = 'Kucing Anda mungkin mengalami Infeksi Saluran Pernapasan.';
+                solution = 'Berikan antibiotik sesuai resep dokter hewan.';
+                prevention = 'Jaga kebersihan lingkungan kucing dan hindari kontak dengan kucing yang sakit.';
+            } else if (symptoms.symptom3.value === 'yes' && symptoms.symptom4.value === 'yes') {
+                prediction = 'Kucing Anda mungkin mengalami Gastroenteritis (peradangan pada saluran pencernaan).';
+                solution = 'Berikan cairan rehidrasi dan makanan yang mudah dicerna.';
+                prevention = 'Pastikan kucing Anda tidak memakan makanan yang terkontaminasi.';
+            } else if (symptoms.symptom5.value === 'yes' && symptoms.symptom6.value === 'yes') {
+                prediction = 'Kucing Anda mungkin mengalami Anoreksia (hilangnya nafsu makan).';
+                solution = 'Berikan makanan yang menarik dan bergizi tinggi.';
+                prevention = 'Jaga pola makan yang teratur dan hindari stres pada kucing.';
+            } else if (symptoms.symptom7.value === 'yes' && symptoms.symptom8.value === 'yes' && symptoms.symptom9.value === 'yes') {
+                prediction = 'Kucing Anda mungkin mengalami Flu Kucing.';
+                solution = 'Berikan obat antivirus dan jaga kucing tetap hangat.';
+                prevention = 'Vaksinasi rutin dan hindari kontak dengan kucing yang terinfeksi.';
+            } else if (symptoms.symptom10.value === 'yes') {
+                prediction = 'Kucing Anda mungkin mengalami Alergi Kulit.';
+                solution = 'Berikan antihistamin dan hindari alergen yang diketahui.';
+                prevention = 'Jaga kebersihan lingkungan dan gunakan produk perawatan kulit yang sesuai.';
+            } else {
+                prediction = 'Kucing Anda mungkin mengalami kondisi umum lainnya.';
+                solution = 'Berikan perawatan umum dan konsultasikan dengan dokter hewan jika gejala berlanjut.';
+                prevention = 'Jaga kebersihan lingkungan dan perhatikan gejala lainnya.';
+            }
+
+            document.getElementById('prediction').textContent = prediction;
+            document.getElementById('solution').textContent = solution;
+            document.getElementById('prevention').textContent = prevention;
+            document.getElementById('result').classList.remove('hidden');
+        });
+  </script>
+ </body>
+</html>
